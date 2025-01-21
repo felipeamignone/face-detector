@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { useEffect, useState, useRef, useMemo } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import {
   Frame,
   useCameraDevice,
@@ -12,7 +12,8 @@ import {
 } from "react-native-vision-camera-face-detector";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppState } from "@react-native-community/hooks";
-import ScreenContainer from "../../components/screenContainer";
+import ThemedScreenContainer from "../../components/themedScreenContainer";
+import ThemedText from "../../components/themedText";
 
 export default function FaceDetectorScreen() {
   const [faces, setFaces] = useState<Face[] | null>(null);
@@ -50,15 +51,15 @@ export default function FaceDetectorScreen() {
 
   if (!hasPermission)
     return (
-      <ScreenContainer>
-        <Text>Sem permissão</Text>
-      </ScreenContainer>
+      <ThemedScreenContainer>
+        <ThemedText variant="title">Sem permissão</ThemedText>
+      </ThemedScreenContainer>
     );
   if (!device)
     return (
-      <ScreenContainer>
-        <Text>Sem dispositivo</Text>
-      </ScreenContainer>
+      <ThemedScreenContainer>
+        <ThemedText variant="title">Sem dispositivo</ThemedText>
+      </ThemedScreenContainer>
     );
 
   return (
@@ -84,15 +85,21 @@ export default function FaceDetectorScreen() {
               borderWidth: 2,
             }}
           >
-            {face.smilingProbability > 0.7 && <Text style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              backgroundColor: 'red',
-              color: 'white',
-              padding: 4,
-              fontSize: 16,
-            }}>Sorrindo</Text>}
+            {face.smilingProbability > 0.7 && (
+              <Text
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  backgroundColor: "red",
+                  color: "white",
+                  padding: 4,
+                  fontSize: 16,
+                }}
+              >
+                Sorrindo
+              </Text>
+            )}
           </View>
         ))}
     </View>

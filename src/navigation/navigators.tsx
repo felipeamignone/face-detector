@@ -6,6 +6,7 @@ import HomeScreen from "../screens/home";
 import FaceDetectorScreen from "../screens/faceDetector";
 import LoginScreen from "../screens/login";
 import { MaterialIcons } from "@expo/vector-icons";
+import { tabStyles } from "./styles";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -15,14 +16,16 @@ function Tabs() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: tabStyles.tabBar,
+        tabBarLabelStyle: tabStyles.tabLabel,
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name={"home"} size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name={"home"} size={tabStyles.tabIcon.fontSize} color={color} />
           ),
         }}
       />
@@ -31,7 +34,7 @@ function Tabs() {
         component={FaceDetectorScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name={"person"} size={size} color={color} />
+            <MaterialIcons name={"person"} size={tabStyles.tabIcon.fontSize} color={color} />
           ),
         }}
       />

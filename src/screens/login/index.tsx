@@ -1,8 +1,11 @@
-import ScreenContainer from "../../components/screenContainer";
-import ContainedButton from "../../components/containedButton";
-import Input from "../../components/input";
+import { View } from "react-native";
 import useLogin from "./useLogin";
-import { View, Text } from "react-native";
+
+import ThemedScreenContainer from "../../components/themedScreenContainer";
+import ThemedButton from "../../components/themedButton";
+import ThemedInput from "../../components/themedInput";
+import ThemedText from "../../components/themedText";
+
 import { styles } from "./styles";
 
 export default function LoginScreen() {
@@ -17,28 +20,31 @@ export default function LoginScreen() {
   };
 
   return (
-    <ScreenContainer>
+    <ThemedScreenContainer>
       <View>
-        <Text>Exemplo login:</Text>
-        <Text>username: emilys</Text>
-        <Text>password: emilyspass</Text>
+        <ThemedText>Exemplo login:</ThemedText>
+        <ThemedText>username: emilys</ThemedText>
+        <ThemedText>password: emilyspass</ThemedText>
       </View>
       <View style={styles.formContainer}>
-        <Input
-          onChange={handleChangeUsername}
+        <ThemedInput
+          onChangeText={handleChangeUsername}
           value={formState.username}
           placeholder="Nome de usuário"
         />
-        <Input
-          onChange={handleChangePassword}
+        <ThemedInput
+          onChangeText={handleChangePassword}
           value={formState.password}
           placeholder="Senha"
-          secureTextEntry
+          variant="password"
         />
       </View>
-      <ContainedButton onPress={handleLogin} width={200} startIcon="face">
-        ENTRAR
-      </ContainedButton>
-    </ScreenContainer>
+      <ThemedButton
+        variant="outlined"
+        title="Entrar"
+        onPress={handleLogin}
+        icon="face"
+      />
+    </ThemedScreenContainer>
   );
 }
