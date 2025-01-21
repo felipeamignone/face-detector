@@ -25,8 +25,10 @@ const useLogin = () => {
       if (response) {
         Notifier.showNotification({
           description: "Login efetuado com sucesso!",
-          showEasing: Easing.bounce,
-          hideOnPress: true,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: "success",
+          },
         });
         navigation.navigate("Tabs");
         return;
