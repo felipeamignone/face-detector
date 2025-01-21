@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "../screens/home";
 import FaceDetectorScreen from "../screens/faceDetector";
 import LoginScreen from "../screens/login";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,8 +17,24 @@ function Tabs() {
         headerShown: false,
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="FaceDetector" component={FaceDetectorScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name={"home"} size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Face Detector"
+        component={FaceDetectorScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name={"person"} size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
