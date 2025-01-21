@@ -25,6 +25,7 @@ export default function LoginScreen() {
         onChange={handleChangePassword}
         value={formState.password}
         placeholder="Senha"
+        secureTextEntry
       />
       <ContainedButton onPress={handleLogin} width={200} startIcon="face">
         ENTRAR

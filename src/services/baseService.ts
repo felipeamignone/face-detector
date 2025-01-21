@@ -1,8 +1,8 @@
 export default class BaseService {
   private baseUrl: string;
 
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor() {
+    this.baseUrl = process.env.EXPO_PUBLIC_API_URL;
   }
 
   protected async get(endpoint: string): Promise<any> {
@@ -17,6 +17,7 @@ export default class BaseService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     });
     return this.handleResponse(response);
   }
@@ -28,6 +29,7 @@ export default class BaseService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     });
     return this.handleResponse(response);
   }
