@@ -15,12 +15,11 @@ export default function HomeScreen() {
       />
       <Text style={styles.title}>Bem vindo ao Face Detector</Text>
       <Text style={styles.description}>
-      Face Detector é um aplicativo inovador que utiliza tecnologias
-        avançadas para detecção facial em tempo real. Combinando as melhores
-        bibliotecas de câmera e algoritmos modernos, o aplicativo oferece uma
-        experiência robusta e eficiente. Ideal para desenvolvedores,
-        pesquisadores ou entusiastas que desejam explorar o potencial da visão
-        computacional.
+        Face Detector é um aplicativo inovador que utiliza tecnologias avançadas
+        para detecção facial em tempo real. Combinando as melhores bibliotecas
+        de câmera e algoritmos modernos, o aplicativo oferece uma experiência
+        robusta e eficiente. Ideal para desenvolvedores, pesquisadores ou
+        entusiastas que desejam explorar o potencial da visão computacional.
       </Text>
       <Text style={styles.subheading}>Bibliotecas utilizadas:</Text>
       <View style={styles.listContainer}>

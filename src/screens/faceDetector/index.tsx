@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import {
   Frame,
   useCameraDevice,
@@ -10,6 +10,9 @@ import {
   Camera,
   FaceDetectionOptions,
 } from "react-native-vision-camera-face-detector";
+import { useIsFocused } from "@react-navigation/native";
+import { useAppState } from "@react-native-community/hooks";
+import ScreenContainer from "../../components/screenContainer";
 
 export default function FaceDetectorScreen() {
   const [faces, setFaces] = useState<Face[] | null>(null);
@@ -18,7 +21,15 @@ export default function FaceDetectorScreen() {
     autoScale: true,
     windowWidth: Dimensions.get("window").width,
     windowHeight: Dimensions.get("window").height,
+    classificationMode: "all",
   }).current;
+
+  const isFocused = useIsFocused();
+  const appState = useAppState();
+  const isActive = useMemo(
+    () => isFocused && appState === "active",
+    [isFocused, appState]
+  );
 
   const device = useCameraDevice("front");
   const { hasPermission, requestPermission } = useCameraPermission();
@@ -37,19 +48,28 @@ export default function FaceDetectorScreen() {
     setFaces(null);
   }
 
+  if (!hasPermission)
+    return (
+      <ScreenContainer>
+        <Text>Sem permissão</Text>
+      </ScreenContainer>
+    );
+  if (!device)
+    return (
+      <ScreenContainer>
+        <Text>Sem dispositivo</Text>
+      </ScreenContainer>
+    );
+
   return (
     <View style={{ flex: 1 }}>
-      {!!device ? (
-        <Camera
-          isActive={true}
-          style={StyleSheet.absoluteFill}
-          device={device}
-          faceDetectionCallback={handleFacesDetection}
-          faceDetectionOptions={faceDetectionOptions}
-        />
-      ) : (
-        <Text>No Device</Text>
-      )}
+      <Camera
+        isActive={isActive}
+        style={StyleSheet.absoluteFill}
+        device={device}
+        faceDetectionCallback={handleFacesDetection}
+        faceDetectionOptions={faceDetectionOptions}
+      />
       {faces !== null &&
         faces.map((face) => (
           <View
@@ -63,7 +83,17 @@ export default function FaceDetectorScreen() {
               borderColor: "red",
               borderWidth: 2,
             }}
-          />
+          >
+            {face.smilingProbability > 0.7 && <Text style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              backgroundColor: 'red',
+              color: 'white',
+              padding: 4,
+              fontSize: 16,
+            }}>Sorrindo</Text>}
+          </View>
         ))}
     </View>
   );
